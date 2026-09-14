@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from mythings.engine import ClaudeCLIEngine, NoopEngine
+from mythings.engine import build_engine_from_args
 from mythings.github import GitHub
 from mythings.ledger import Ledger
 
@@ -44,7 +44,7 @@ def main(argv: list[str] | None = None, *, tool_factory: type[Tool] = Tool) -> i
         repo=args.source,
         ledger=Ledger(args.ledger),
         github=GitHub(args.repo),
-        engine=NoopEngine() if args.engine == "noop" else ClaudeCLIEngine(),
+        engine=build_engine_from_args(args),
         base=args.base,
         label=args.label,
     )
